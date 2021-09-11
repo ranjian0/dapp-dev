@@ -29,12 +29,14 @@ parsimonious==0.8.1
 pluggy==1.0.0
 protobuf==3.17.3
 py==1.10.0
+py-solc-x==1.1.0
 pycryptodome==3.10.1
 pyparsing==2.4.7
 pyrsistent==0.18.0
 pytest==6.2.5
 requests==2.26.0
 rlp==2.0.1
+semantic-version==2.8.5
 six==1.16.0
 toml==0.10.2
 toolz==0.11.1
