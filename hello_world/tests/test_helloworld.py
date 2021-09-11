@@ -26,13 +26,6 @@ def contract(w3):
 
 
 def test_hello(contract, w3):
-    tx_hash = contract.functions.set_greeting("Hello, World")
-    tx_hash = tx_hash.transact()
-    w3.eth.wait_for_transaction_receipt(tx_hash)
-
-    assert contract.functions.get_greeting().call() == "Hello, World"
-
-
     tx_hash = contract.functions.set_greeting("Hello, Ian")
     tx_hash = tx_hash.transact()
     w3.eth.wait_for_transaction_receipt(tx_hash)
