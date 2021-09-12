@@ -9,9 +9,15 @@ from solcx import compile_files
 CURDIR = Path(__file__).parent.absolute()
 
 
-def get_web3(network):
-    if network == "ganache":
+def get_web3(chain):
+    if chain == "ganache":
         return Web3(Web3.HTTPProvider(os.getenv("GANACHE_URL")))
+    elif chain == "mainnet":
+        return Web3(Web3.HTTPProvider(f"https://mainnet.infura.io/v3/{os.getenv('INFURA_PROJECT_ID')}"))
+    elif chain == "ropsten":
+        return Web3(Web3.HTTPProvider(f"https://ropsten.infura.io/v3/{os.getenv('INFURA_PROJECT_ID')}"))
+    elif chain == "rinkeby":
+        return Web3(Web3.HTTPProvider(f"https://rinkeby.infura.io/v3/{os.getenv('INFURA_PROJECT_ID')}"))
     return None
 
 
