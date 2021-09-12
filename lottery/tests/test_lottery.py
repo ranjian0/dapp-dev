@@ -26,22 +26,23 @@ def contract(w3):
 
 
 def test_lottery(contract, w3):
-    player_accounts = [
+    players = [
         account for account in w3.eth.accounts 
         if account != w3.eth.default_account and w3.eth.get_balance(account) > 0
     ]
 
-    balances = list(map(w3.eth.get_balance, player_accounts))
-    assert all(b > 0 for b in balances)
+    assert contract.functions.get_balance().call() == 0
+    assert contract.functions.get_players().call() == []
 
-    # -- add some new players
-    for account in player_accounts:
-        if w3.eth.get_balance(account) > w3.toWei(0.0001, 'ether'):
+    # -- enter players
+    for player in players:
+        if w3.eth.get_balance(player) > w3.toWei(0.0001, 'ether'):
             tx_hash = contract.functions.enter()
-            tx_hash = tx_hash.transact({'from':account, 'value':str(w3.toWei(0.0001, 'ether'))})
+            tx_hash = tx_hash.transact({'from':player, 'value':str(w3.toWei(0.0001, 'ether'))})
             w3.eth.wait_for_transaction_receipt(tx_hash)
 
     assert contract.functions.get_balance().call() > 0
+    assert len(contract.functions.get_players().call()) > 0
 
     # -- pick winner
     tx_hash = contract.functions.pick_winner()
@@ -49,5 +50,6 @@ def test_lottery(contract, w3):
     w3.eth.wait_for_transaction_receipt(tx_hash)
 
     assert contract.functions.get_balance().call() == 0
+    assert contract.functions.get_players().call() == []
 
     
