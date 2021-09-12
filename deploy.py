@@ -22,13 +22,13 @@ def main():
     parser.add_argument('--folder', type=str, required=True,
         help="Folder containing a 'contracts' subfolder with solidity files")
 
-    parser.add_argument('--network', type=str, required=True,
-        choices=["mainnet", "ropsten", "ganache"],
-        help="Network to deploy the contract to e.g 'mainnet' for ethereum main network")
+    parser.add_argument('--chain', type=str, required=True,
+        choices=["ganache", "mainnet", "ropsten", "rinkeby"],
+        help="Chain to deploy the contract to e.g 'mainnet' for ethereum main network")
 
     args = parser.parse_args()
 
-    deploy_network = args.network
+    deploy_chain = args.chain
     smart_contracts_folder = Path(args.folder).absolute() / "contracts"
 
     if not smart_contracts_folder.exists():
@@ -38,7 +38,7 @@ def main():
     sol_files = list(smart_contracts_folder.glob("**/*.sol"))
     compiled_contracts = compile_files(sol_files)
 
-    w3 = get_web3(deploy_network)
+    w3 = get_web3(deploy_chain)
     for contract_key, contract_interface in compiled_contracts.items():
         # Instantiate and deploy contract
         contract = w3.eth.contract(
