@@ -9,7 +9,7 @@ $ pip install -r requirements.txt
 $ 
 $ python -c "from solcx import install_solc; install_solc(version='latest')"
 $ export GANACHE_URL="http://127.0.0.1:7545"
-$ export INFURA_PROJECT_ID="<your project id>"
+$ export WEB3_INFURA_PROJECT_ID="<your project id>"
 ```
 
 
@@ -20,7 +20,7 @@ $ python deploy.py --folder lottery --chain ganache
 ```
 
 if chain is 'ganache', ensure the environment variable 'GANACHE_URL' is set
-otherwise set the environment variable 'INFURA_PROJECT_ID'
+otherwise set the environment variable 'WEB3_INFURA_PROJECT_ID'
 
 ## Run some tests
 
